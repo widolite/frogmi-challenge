@@ -46,14 +46,12 @@ end
 
 def save_feature(features, db_connection)
   features.each do |feature|
-    print feature
-    puts ""
-    print feature.values
+    puts feature
     begin
       sql = "INSERT INTO public.features (external_id,magnitude,time,tsunami,title,url,place,magtype,longitude,latitude) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)"
       db_connection.exec_params(sql, feature.values)
     rescue PG::UniqueViolation => e
-      puts "This feature already exists so continue. ---> #{e}"
+      puts "This feature already exists, so continue. ---> #{e}"
       next
     rescue Exception => e
       puts "Something went wrong. ---> #{e}"
@@ -97,7 +95,7 @@ get '/api/features' do
     results = conn.exec_params(sql, [sort_field, mag_type, offset + 1, offset + per_page])
     total_sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY $1 ) AS row_num FROM #{table_name})
                     AS numbered_data WHERE magtype=$2"
-    result_sql = conn.exec_params(total_sql, [sort_field,mag_type])
+    result_sql = conn.exec_params(total_sql, [sort_field, mag_type])
 
   end
   data = []
@@ -130,6 +128,37 @@ get '/api/features' do
   all_together.to_json
 end
 
-# features = get_features
-# db_connection = get_db_connection
-# save_feature(features, db_connection)
+# http://127.0.0.1:3000/api/features/1/comments
+post '/api/features/:id/comments' do
+  require 'json'
+  begin
+    payload = JSON.parse(request.body.read)
+    raise JSON::ParserError, "Body parameter is empty" if payload["body"].nil? || payload["body"].empty?
+    comment = payload["body"]
+    id = params[:id]
+    # validating if feature exist
+    conn = get_db_connection
+    sql = "SELECT COUNT(*) FROM public.features WHERE id = #{id}"
+    if conn.exec(sql)[0]['count'].to_i == 0
+      conn.close
+      status 400
+      { message: 'Feature does not exist.' }.to_json
+    else
+      sql = "INSERT INTO public.comments (text,feauture_id) VALUES ($1, $2)"
+      result = conn.exec_params(sql, [comment, id])
+      if result.res_status =='PGRES_COMMAND_OK'
+        conn.close
+        status 200
+        { message: 'comment was saved into the database.' }.to_json
+      end
+    end
+  rescue JSON::ParserError => e
+    status 400
+    print e
+    { message: 'Bad request! Missing/Empty parameter.' }.to_json
+  end
+end
+
+features = get_features
+db_connection = get_db_connection
+save_feature(features, db_connection)
