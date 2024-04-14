@@ -62,9 +62,7 @@ def save_feature(features, db_connection)
 end
 
 get '/' do
-  first_name = 'Hector'
-  last_name = 'Guerrero'
-  "#{first_name} #{last_name} - Frogmi"
+  erb :main
 end
 
 get '/features' do

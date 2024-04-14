@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Features List</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://127.0.0.1:3000/css/site.css" rel="stylesheet">
+  <style>
+      body {
+          padding-left: 20px;
+          font-size: 18px;
+      }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body>
+<div class="main_content">
+  <div class="copyright">
+    <div ng-if="result" class="alert alert-success" role="alert">
+      <h1 class="title">Frogmi - Technical Challenge </h1>
+    </div>
+    <div ng-if="error" class="alert alert-danger" role="alert">
+      <h2 class="title">Hector Guerrero </h2>
+      <div class="title">
+        <a href="https://sinatrarb.com/intro.html">Backend Ruby's Framework:</a>
+        <div class="desc">Sinatra</div>
+        <a href="https://angularjs.org/">Frontend Framework:</a>
+        <div class="desc">AngularJS</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="container project-list">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Project Links</h2>
+        <div class="subtitle">Links to test the Frogmi's project Challenge</div>
+
+        <div class="project">
+          <div class="title">
+            <a href="/features">/features</a>
+            <div class="desc">list of features available to see and filter by magnitude type .</div>
+            <a href="/comments">/comments</a>
+            <div class="desc">form to submit a comment relate with a feature.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
