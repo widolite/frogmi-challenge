@@ -10,6 +10,14 @@
           padding-left: 20px;
           font-size: 18px;
       }
+
+      code {
+          font-family: Consolas, "courier new";
+          color: crimson;
+          background-color: #f1f1f1;
+          padding: 2px;
+          font-size: 50%;
+      }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
@@ -17,15 +25,15 @@
 <div class="main_content">
   <div class="copyright">
     <div ng-if="result" class="alert alert-success" role="alert">
-      <h1 class="title">Frogmi - Technical Challenge </h1>
+      <h1 class="title letterfont">Frogmi - Technical Challenge </h1>
     </div>
     <div ng-if="error" class="alert alert-danger" role="alert">
-      <h2 class="title">Hector Guerrero </h2>
+      <h2 class="title letterfont">Hector Guerrero </h2>
       <div class="title">
-        <a href="https://sinatrarb.com/intro.html">Backend Ruby's Framework:</a>
-        <div class="desc">Sinatra</div>
-        <a href="https://angularjs.org/">Frontend Framework:</a>
-        <div class="desc">AngularJS</div>
+        <a class="letterfont" href="https://sinatrarb.com/intro.html">Backend Ruby's Framework:</a>
+        <div class="desc letterfont">Sinatra</div>
+        <a class="letterfont" href="https://angularjs.org/">Frontend Framework:</a>
+        <div class="desc letterfont">AngularJS</div>
       </div>
     </div>
 
@@ -33,16 +41,29 @@
   <div class="container project-list">
     <div class="row">
       <div class="col-md-12">
-        <h2>Project Links</h2>
-        <div class="subtitle">Links to test the Frogmi's project Challenge</div>
+        <h2 class="title letterfont">Project Links</h2>
+        <div class="subtitle letterfont">Frontend's links to test the Frogmi's project Challenge</div>
 
         <div class="project">
           <div class="title">
-            <a href="/features">/features</a>
-            <div class="desc">list of features available to see and filter by magnitude type .</div>
-            <a href="/comments">/comments</a>
-            <div class="desc">form to submit a comment relate with a feature.</div>
+            <a class=" letterfont" href="/features">/features</a>
+            <div class="desc letterfont">list of features available to see and filter by magnitude type .</div>
+            <a class=" letterfont" href="/comments">/comments</a>
+            <div class="desc letterfont">form to submit a comment relate with a feature.</div>
           </div>
+        </div>
+        <div class="subtitle letterfont">Backend's links to validate the Frogmi's project Challenge</div>
+        <div class="project">
+          <div class="title">
+            <a class=" letterfont" href="/api/features?page=1&per_page=2">GET - /api/features?page=1&per_page=2</a>
+            <div class="desc letterfont">list of features available per page.</div>
+            <a class=" letterfont" href="/api/features?page=1&per_page=2&mag_type=md">GET -
+              /api/features?page=1&per_page=2&mag_type=md</a>
+            <div class="desc letterfont">list of features available per page and filter by mag_type.</div>
+            <a class=" letterfont" href="/api/features/1/comments">POST - /api/features/1/comments</a>
+            <div class="desc letterfont">comment a feature.</div>
+          </div>
+
         </div>
       </div>
     </div>
