@@ -1,4 +1,4 @@
-let app = angular.module('myApp', []);
+let app = angular.module('featuresApp', []);
 
 app.controller('ItemsCtrl', function($scope, $http) {
   $scope.items = [];

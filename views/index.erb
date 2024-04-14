@@ -19,15 +19,17 @@
       }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-  <script src="app.js"></script>
+  <script src="features.js"></script>
 </head>
-<body ng-app="myApp">
+<body ng-app="featuresApp">
   <div ng-controller="ItemsCtrl" class="main_content">
-    <h1 class="copyright">Features</h1>
-    <div ng-if="totalPages > 1" class="copyright">
-      <button ng-click="prevPage()" ng-disabled="currentPage === 1" class="btn btn-outline-dark">Previous</button>
+    <div class="copyright">
+      <h1 class="title">Features</h1>
+    </div>
+    <div ng-if="totalPages > 1"  class="copyright container mt-3">
+      <button ng-click="prevPage()" ng-disabled="currentPage === 1" class="btn btn-primary">Previous</button>
       <span class="version"> {{ currentPage }} / {{ totalPages }}</span>
-      <button ng-click="nextPage()" ng-disabled="currentPage === totalPages" class="btn btn-outline-dark">Next</button>
+      <button ng-click="nextPage()" ng-disabled="currentPage === totalPages" class="btn btn-primary">Next</button>
     </div>
     <div class="hero-inner">
     <ul>
@@ -66,10 +68,10 @@
       </li>
     </ul>
     </div>
-    <div ng-if="totalPages > 1" class="copyright">
-      <button ng-click="prevPage()" ng-disabled="currentPage === 1" class="btn btn-outline-dark">Previous</button>
+    <div ng-if="totalPages > 1" class="copyright container mt-3">
+      <button ng-click="prevPage()" ng-disabled="currentPage === 1" class="btn btn-primary">Previous</button>
       <span class="version"> {{ currentPage }} / {{ totalPages }}</span>
-      <button ng-click="nextPage()" ng-disabled="currentPage === totalPages" class="btn btn-outline-dark">Next</button>
+      <button ng-click="nextPage()" ng-disabled="currentPage === totalPages" class="btn btn-primary">Next</button>
     </div>
   </div>
 </body>
