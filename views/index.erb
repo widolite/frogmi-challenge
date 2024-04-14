@@ -22,18 +22,38 @@
   <script src="features.js"></script>
 </head>
 <body ng-app="featuresApp">
-  <div ng-controller="ItemsCtrl" class="main_content">
-    <div class="copyright">
-      <h1 class="title">Features</h1>
+<div ng-controller="ItemsCtrl" class="main_content">
+  <div class="copyright">
+    <h1 class="title">Features</h1>
+  </div>
+  <div ng-if="totalPages > 1" class="copyright container mt-3">
+    <button ng-click="prevPage()" ng-disabled="currentPage === 1" class="btn btn-primary">Previous</button>
+    <span class="version"> {{ currentPage }} / {{ totalPages }}</span>
+    <button ng-click="nextPage()" ng-disabled="currentPage === totalPages" class="btn btn-primary">Next</button>
+  </div>
+  <div ng-if="error" class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+  <div class="copyright container mt-3">
+    <div class="mb-3">
+      <label class="letterfont"> Magnitude Type:
+        <select class="form-select" ng-model="magType" ng-change="filterByMagType()">
+          <option value="all" selected>all</option>
+          <option value="md">md</option>
+          <option value="ml">ml</option>
+          <option value="ms">ms</option>
+          <option value="mw">mw</option>
+          <option value="me">me</option>
+          <option value="mi">mi</option>
+          <option value="mb">mb</option>
+          <option value="mlg">mlg</option>
+        </select>
+      </label>
     </div>
-    <div ng-if="totalPages > 1"  class="copyright container mt-3">
-      <button ng-click="prevPage()" ng-disabled="currentPage === 1" class="btn btn-primary">Previous</button>
-      <span class="version"> {{ currentPage }} / {{ totalPages }}</span>
-      <button ng-click="nextPage()" ng-disabled="currentPage === totalPages" class="btn btn-primary">Next</button>
-    </div>
-    <div class="hero-inner">
+  </div>
+  <div class="hero-inner">
     <ul>
-      <li ng-repeat="item in items" >
+      <li ng-repeat="item in items">
         <span class="title"> ID: {{ item.id }} </span>
         <ul ng-if="item.attributes" class="fattributes">
           <li><span class="title">Title:
@@ -67,12 +87,12 @@
         </ul>
       </li>
     </ul>
-    </div>
-    <div ng-if="totalPages > 1" class="copyright container mt-3">
-      <button ng-click="prevPage()" ng-disabled="currentPage === 1" class="btn btn-primary">Previous</button>
-      <span class="version"> {{ currentPage }} / {{ totalPages }}</span>
-      <button ng-click="nextPage()" ng-disabled="currentPage === totalPages" class="btn btn-primary">Next</button>
-    </div>
   </div>
+  <div ng-if="totalPages > 1" class="copyright container mt-3">
+    <button ng-click="prevPage()" ng-disabled="currentPage === 1" class="btn btn-primary">Previous</button>
+    <span class="version"> {{ currentPage }} / {{ totalPages }}</span>
+    <button ng-click="nextPage()" ng-disabled="currentPage === totalPages" class="btn btn-primary">Next</button>
+  </div>
+</div>
 </body>
 </html>
