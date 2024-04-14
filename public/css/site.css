@@ -30,6 +30,11 @@ nav > a {
 
 }
 
+.letterfont {
+    font-family: "Ubuntu Mono", serif;
+
+}
+
 .hero {
     background-color: #0073b7;
     color: white;

@@ -164,7 +164,7 @@ post '/api/features/:id/comments' do
   rescue JSON::ParserError => e
     status 400
     print e
-    { message: 'Bad request! Missing/Empty parameter.', status: 400 }.to_json
+    { message: 'Bad request! Missing/Empty Body.', status: 400 }.to_json
   end
 end
 
