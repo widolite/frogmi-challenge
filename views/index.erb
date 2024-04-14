@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Features List</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+      body {
+          padding-left: 20px;
+          font-size: 18px;
+      }
+
+      .row > div {
+          border: 1px solid gray;
+          background: #aaa;
+          color: white;
+          height: 100px;
+      }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-app="myApp">
+  <div ng-controller="ItemsCtrl">
+    <h1>Data from Server (Paginated)</h1>
+    <ul>
+      <li ng-repeat="item in items">
+        {{ item.id }}
+        <ul ng-if="item.attributes">
+          <li>
+            {{ item.attributes.external_id }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div ng-if="totalPages > 1">
+      <button ng-click="prevPage()" ng-disabled="currentPage === 1">Previous</button>
+      {{ currentPage }} / {{ totalPages }}
+      <button ng-click="nextPage()" ng-disabled="currentPage === totalPages">Next</button>
+    </div>
+  </div>
+</body>
+</html>

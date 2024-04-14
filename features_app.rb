@@ -67,6 +67,10 @@ get '/' do
   "#{first_name} #{last_name} - Frogmi"
 end
 
+get '/features' do
+  erb :index
+end
+
 # http://127.0.0.1:3000/api/features?page=1&per_page=2%27
 # http://127.0.0.1:3000/api/features?page=1&per_page=2&mag_type%5B%5D=md%27
 get '/api/features' do
@@ -159,6 +163,6 @@ post '/api/features/:id/comments' do
   end
 end
 
-features = get_features
-db_connection = get_db_connection
-save_feature(features, db_connection)
+# features = get_features
+# db_connection = get_db_connection
+# save_feature(features, db_connection)
