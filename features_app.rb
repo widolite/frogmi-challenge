@@ -71,6 +71,10 @@ get '/features' do
   erb :index
 end
 
+get '/comments' do
+  erb :comments
+end
+
 # http://127.0.0.1:3000/api/features?page=1&per_page=2%27
 # http://127.0.0.1:3000/api/features?page=1&per_page=2&mag_type%5B%5D=md%27
 get '/api/features' do
@@ -137,6 +141,7 @@ post '/api/features/:id/comments' do
   require 'json'
   begin
     payload = JSON.parse(request.body.read)
+    print payload
     raise JSON::ParserError, "Body parameter is empty" if payload["body"].nil? || payload["body"].empty?
     comment = payload["body"]
     id = params[:id]
@@ -145,21 +150,21 @@ post '/api/features/:id/comments' do
     sql = "SELECT COUNT(*) FROM public.features WHERE id = #{id}"
     if conn.exec(sql)[0]['count'].to_i == 0
       conn.close
-      status 400
-      { message: 'Feature does not exist.' }.to_json
+      status 404
+      { message: 'Feature does not exist.', status: 404 }.to_json
     else
       sql = "INSERT INTO public.comments (text,feauture_id) VALUES ($1, $2)"
       result = conn.exec_params(sql, [comment, id])
-      if result.res_status =='PGRES_COMMAND_OK'
+      if result.res_status == 'PGRES_COMMAND_OK'
         conn.close
         status 200
-        { message: 'comment was saved into the database.' }.to_json
+        { message: 'comment was saved into the database.', status: 200 }.to_json
       end
     end
   rescue JSON::ParserError => e
     status 400
     print e
-    { message: 'Bad request! Missing/Empty parameter.' }.to_json
+    { message: 'Bad request! Missing/Empty parameter.', status: 400 }.to_json
   end
 end
 

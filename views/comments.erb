@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Angular Comment App</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://127.0.0.1:3000/css/site.css" rel="stylesheet">
+  <style>
+      body {
+          padding-left: 20px;
+          font-size: 18px;
+      }
+
+      .row > div {
+          border: 1px solid gray;
+          background: #aaa;
+          color: white;
+          height: 100px;
+      }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="comments.js"></script>
+</head>
+<body ng-app="commentApp">
+<div ng-controller="CommentCtrl" class="main_content">
+
+  <h1>Submit a Comment</h1>
+
+  <label for="comment">Comment:</label>
+  <textarea id="comment" ng-model="data.body" rows="4"></textarea>
+  <br>
+  <label for="feature_id">Feature ID:</label>
+  <input type="number" id="feature_id" ng-model="featureId">
+  <div ng-if="result">
+    <p>{{ result }}</p>
+  </div>
+  <div ng-if="error">
+    <p class="error-message">{{ error }}</p>
+  </div>
+  <div class="copyright">
+    <button type="button" ng-click="submitComment()">Submit Comment</button>
+  </div>
+
+</div>
+</body>
+</html>
