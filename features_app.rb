@@ -81,9 +81,9 @@ get '/api/features' do
   sort_field = params['sort_field'].nil? ? "id" : params['sort_field']
   page = params['page'].nil? ? 1 : params['page'].to_i
   per_page = params['per_page'].nil? ? 5 : params['per_page'].to_i
-  mag_type_types = ['md', 'ml', 'ms', 'mw', 'me', 'mi', 'mb', 'mlg']
+  mag_type_types = %w[md ml ms mw me mi mb mlg]
   mag_type = params['mag_type'].nil? ? nil : params['mag_type']
-  if !mag_type_types.include?(mag_type)
+  unless mag_type_types.include?(mag_type)
     mag_type = nil
   end
   conn = get_db_connection
@@ -91,20 +91,30 @@ get '/api/features' do
   offset = (page - 1) * per_page
   table_name = "public.features"
   if mag_type.nil?
-    sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY $1 ) AS row_num FROM #{table_name})
-                    AS numbered_data WHERE row_num BETWEEN $2 AND $3"
-    results = conn.exec_params(sql, [sort_field, offset + 1, offset + per_page])
-    total_sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY $1 ) AS row_num FROM #{table_name})
-                    AS numbered_data"
-    result_sql = conn.exec_params(total_sql, [sort_field])
+    # sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY $1 ) AS row_num FROM #{table_name})
+    #                 AS numbered_data WHERE row_num BETWEEN $2 AND $3"
+    print("#{offset + 1} #{offset + per_page}")
+    sql = "SELECT * FROM #{table_name}
+           ORDER BY $1 ASC
+           OFFSET $2 -- page
+           LIMIT $3  -- per-page"
+    results = conn.exec_params(sql, [sort_field, offset, per_page])
+    total_sql = "SELECT * FROM #{table_name}"
+    result_sql = conn.exec(total_sql)
   else
-    sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY $1 ) AS row_num FROM #{table_name})
-                    AS numbered_data WHERE magtype=$2 AND row_num BETWEEN $3 AND $4"
-    results = conn.exec_params(sql, [sort_field, mag_type, offset + 1, offset + per_page])
-    total_sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY $1 ) AS row_num FROM #{table_name})
-                    AS numbered_data WHERE magtype=$2"
-    result_sql = conn.exec_params(total_sql, [sort_field, mag_type])
-
+    # sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY $1 ) AS row_num FROM #{table_name})
+    #                AS numbered_data WHERE magtype=$2 AND row_num BETWEEN $3 AND $4"
+    sql = "SELECT * FROM #{table_name}
+           WHERE magtype = $1
+           ORDER BY $2 ASC
+           OFFSET $3 -- page
+           LIMIT $4  -- per-page
+           "
+    results = conn.exec_params(sql, [mag_type, sort_field, offset, per_page])
+    # total_sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY $1 ) AS row_num FROM #{table_name})
+    #                 AS numbered_data WHERE magtype=$2"
+    total_sql = "SELECT * FROM #{table_name} WHERE magtype = $1"
+    result_sql = conn.exec_params(total_sql, [mag_type])
   end
   data = []
   total_pages = (result_sql.ntuples / per_page.to_f).ceil
