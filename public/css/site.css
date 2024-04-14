@@ -1,0 +1,120 @@
+.title {
+    font-weight: bold;
+}
+
+.version {
+    font-family: "Ubuntu Mono";
+}
+
+.main_content {
+    background-color: #fff;
+    padding: 0px 0px 50px;
+    margin: 0px;
+}
+
+nav {
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    height: 65px;
+    background-color: #0073b7;
+}
+
+nav > a {
+    color: white;
+    margin-right: 10px;
+}
+
+.fattributes > li {
+    font-family: "Ubuntu Mono", serif;
+
+}
+
+.hero {
+    background-color: #0073b7;
+    color: white;
+    font-size: 14px;
+    /* padding 50px top and bot 0px on the sides */
+    padding: 50px 0px;
+    text-align: center;
+
+}
+
+.hero h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.hero a {
+    color: white;
+    text-decoration: underline;
+}
+
+.hero-inner {
+
+    padding: 50px 0px;
+    max-width: 500px;
+
+    /* center the <div> */
+    margin-right: auto;
+    margin-left: auto;
+    /* end center the </div> */
+
+    margin-bottom: 30px;
+
+}
+
+.pypi-stats {
+    text-align: center;
+    padding: 30px;
+    background-color: lightgray;
+    margin-bottom: 30px;
+}
+
+.pypi-stats .stat {
+    color: #003d61;
+    font-size: 16px;
+    min-width: 200px;
+}
+
+.project-list .subtitle {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.project-list h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.project-list .project {
+    border: 1px solid #d3d3d3;
+    padding: 10px;
+    margin: 15px;
+    background-color: #ececec;
+    min-height: 45px;
+    color: black;
+}
+
+.project-list .project .title {
+    font-size: 20px;
+}
+
+.project-list .project a {
+    color: #006dad;
+}
+
+.project-list .project .desc {
+    font-size: 16px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.copyright {
+    padding: 15px;
+    text-align: center;
+}
+
+.copyright a {
+    color: #003d61;
+}
