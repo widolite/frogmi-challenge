@@ -176,6 +176,7 @@ post '/api/features/:id/comments' do
   end
 end
 
-# features = get_features
-# db_connection = get_db_connection
-# save_feature(features, db_connection)
+# this part gonna bring all the features from the external api to the DB.
+features = get_features
+db_connection = get_db_connection
+save_feature(features, db_connection)
